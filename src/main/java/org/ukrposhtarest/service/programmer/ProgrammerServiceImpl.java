@@ -2,7 +2,6 @@ package org.ukrposhtarest.service.programmer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.ukrposhtarest.model.manager.Manager;
 import org.ukrposhtarest.model.programmer.Programmer;
 import org.ukrposhtarest.repository.ProgrammerRepository;
 
@@ -40,6 +39,7 @@ public class ProgrammerServiceImpl implements ProgrammerService{
         Programmer existingProgrammer = programmerRepository.findById(id).orElseThrow();
         existingProgrammer.setFirstName(updateProgrammer.getFirstName());
         existingProgrammer.setLastName(updateProgrammer.getLastName());
+        existingProgrammer.setProfession(updateProgrammer.getProfession());
         return programmerRepository.save(existingProgrammer);
     }
 }
