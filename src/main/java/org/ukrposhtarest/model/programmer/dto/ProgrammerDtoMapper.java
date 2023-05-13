@@ -20,7 +20,6 @@ public class ProgrammerDtoMapper {
         responseDto.setId(programmer.getId());
         responseDto.setFirstName(programmer.getFirstName());
         responseDto.setLastName(programmer.getLastName());
-
         responseDto.setProfessionId(programmer.getProfession().getId());
         return responseDto;
     }
