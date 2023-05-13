@@ -1,4 +1,4 @@
-package org.ukrposhtarest.model.manager;
+package org.ukrposhtarest.model.manager.dto;
 
 
 import lombok.Getter;
@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ManagerRequestDto {
+public class ManagerResponseDto {
+    private Long id;
     private String firstName;
     private String lastName;
 }

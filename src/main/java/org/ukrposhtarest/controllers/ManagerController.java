@@ -1,12 +1,11 @@
 package org.ukrposhtarest.controllers;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ukrposhtarest.model.manager.Manager;
-import org.ukrposhtarest.model.manager.ManagerDtoMapper;
-import org.ukrposhtarest.model.manager.ManagerRequestDto;
-import org.ukrposhtarest.model.manager.ManagerResponseDto;
+import org.ukrposhtarest.model.manager.dto.ManagerDtoMapper;
+import org.ukrposhtarest.model.manager.dto.ManagerRequestDto;
+import org.ukrposhtarest.model.manager.dto.ManagerResponseDto;
 import org.ukrposhtarest.service.manager.ManagerService;
 
 import java.util.List;
@@ -25,15 +24,15 @@ public class ManagerController {
     public List<ManagerResponseDto> getAllManagers() {
         List<Manager> managers = managerService.getAll();
         return managers.stream()
-                   .map(ManagerDtoMapper::toManagerResponseDto)
+                   .map(ManagerDtoMapper::toResponseDto)
                    .collect(Collectors.toList());
     }
 
     @PostMapping
     public ManagerResponseDto create (@RequestBody ManagerRequestDto managerReqDto) {
-        Manager manager = ManagerDtoMapper.fromManagerRequestDto(managerReqDto);
+        Manager manager = ManagerDtoMapper.fromRequestDto(managerReqDto);
         Manager createdManager = managerService.create(manager);
-        return ManagerDtoMapper.toManagerResponseDto(createdManager);
+        return ManagerDtoMapper.toResponseDto(createdManager);
     }
 
     @DeleteMapping("/{id}")
@@ -43,15 +42,15 @@ public class ManagerController {
 
     @PutMapping("/{id}")
     public ManagerResponseDto update(@PathVariable("id") Long id, @RequestBody ManagerRequestDto managerReqDto) {
-        Manager manager = ManagerDtoMapper.fromManagerRequestDto(managerReqDto);
+        Manager manager = ManagerDtoMapper.fromRequestDto(managerReqDto);
         Manager updatedManager = managerService.update(id, manager);
-        return ManagerDtoMapper.toManagerResponseDto(updatedManager);
+        return ManagerDtoMapper.toResponseDto(updatedManager);
     }
 
     @GetMapping("/{id}")
     public ManagerResponseDto getManagerById(@PathVariable("id") Long id) {
         Optional<Manager> optionalManager = managerService.getById(id);
-        Manager manager = optionalManager.orElseThrow(() -> new EntityNotFoundException("Manager not found with id: " + id));
-        return ManagerDtoMapper.toManagerResponseDto(manager);
+        Manager manager = optionalManager.orElseThrow();
+        return ManagerDtoMapper.toResponseDto(manager);
     }
 }

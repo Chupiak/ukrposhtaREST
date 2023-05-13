@@ -1,8 +1,10 @@
-package org.ukrposhtarest.model.manager;
+package org.ukrposhtarest.model.manager.dto;
+
+import org.ukrposhtarest.model.manager.Manager;
 
 public class ManagerDtoMapper {
 
-    public static ManagerResponseDto toManagerResponseDto(Manager manager) {
+    public static ManagerResponseDto toResponseDto(Manager manager) {
         ManagerResponseDto dto = new ManagerResponseDto();
         dto.setId(manager.getId());
         dto.setFirstName(manager.getFirstName());
@@ -10,7 +12,7 @@ public class ManagerDtoMapper {
         return dto;
     }
 
-    public static Manager fromManagerRequestDto(ManagerRequestDto dto) {
+    public static Manager fromRequestDto(ManagerRequestDto dto) {
         Manager manager = new Manager();
         manager.setFirstName(dto.getFirstName());
         manager.setLastName(dto.getLastName());
