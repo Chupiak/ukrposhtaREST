@@ -2,7 +2,6 @@ package org.ukrposhtarest.service.profession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.ukrposhtarest.model.manager.Manager;
 import org.ukrposhtarest.model.profession.Profession;
 import org.ukrposhtarest.repository.ProfessionRepository;
 

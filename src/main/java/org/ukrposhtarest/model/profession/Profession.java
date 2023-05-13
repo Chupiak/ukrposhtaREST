@@ -1,7 +1,6 @@
 package org.ukrposhtarest.model.profession;
 
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

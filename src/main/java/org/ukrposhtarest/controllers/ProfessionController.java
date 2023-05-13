@@ -3,10 +3,6 @@ package org.ukrposhtarest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.ukrposhtarest.model.manager.Manager;
-import org.ukrposhtarest.model.manager.dto.ManagerDtoMapper;
-import org.ukrposhtarest.model.manager.dto.ManagerRequestDto;
-import org.ukrposhtarest.model.manager.dto.ManagerResponseDto;
 import org.ukrposhtarest.model.profession.Profession;
 import org.ukrposhtarest.model.profession.dto.ProfessionDtoMapper;
 import org.ukrposhtarest.model.profession.dto.ProfessionRequestDto;
