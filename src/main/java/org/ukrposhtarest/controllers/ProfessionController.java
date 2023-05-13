@@ -22,7 +22,7 @@ public class ProfessionController {
 
     @PostMapping
     public ProfessionResponseDto create(@RequestBody ProfessionRequestDto professionRequestDto) {
-        Profession profession = ProfessionDtoMapper.fromRequestDto(professionRequestDto);
+        Profession profession = ProfessionDtoMapper.toEntity(professionRequestDto);
         Profession createdProfession = professionService.create(profession);
         return ProfessionDtoMapper.toResponseDto(createdProfession);
     }
@@ -49,7 +49,7 @@ public class ProfessionController {
 
     @PutMapping("/{id}")
     public ProfessionResponseDto update(@PathVariable("id") Long id, @RequestBody ProfessionRequestDto professionRequestDto) {
-        Profession profession = ProfessionDtoMapper.fromRequestDto(professionRequestDto);
+        Profession profession = ProfessionDtoMapper.toEntity(professionRequestDto);
         Profession updatedProfession = professionService.update(id, profession);
         return ProfessionDtoMapper.toResponseDto(updatedProfession);
     }

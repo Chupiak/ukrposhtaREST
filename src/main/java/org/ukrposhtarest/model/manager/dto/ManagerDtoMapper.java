@@ -12,7 +12,7 @@ public class ManagerDtoMapper {
         return dto;
     }
 
-    public static Manager fromRequestDto(ManagerRequestDto dto) {
+    public static Manager toEntity(ManagerRequestDto dto) {
         Manager manager = new Manager();
         manager.setFirstName(dto.getFirstName());
         manager.setLastName(dto.getLastName());

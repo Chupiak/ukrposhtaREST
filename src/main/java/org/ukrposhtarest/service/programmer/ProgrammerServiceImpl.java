@@ -1,33 +1,45 @@
 package org.ukrposhtarest.service.programmer;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.ukrposhtarest.model.manager.Manager;
 import org.ukrposhtarest.model.programmer.Programmer;
+import org.ukrposhtarest.repository.ProgrammerRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ProgrammerServiceImpl implements ProgrammerService{
+
+    @Autowired
+    ProgrammerRepository programmerRepository;
+
     @Override
-    public Programmer create(Programmer element) {
-        return null;
+    public Programmer create(Programmer programmer) {
+        return programmerRepository.save(programmer);
     }
 
     @Override
-    public void delete(Long elementId) {
-
+    public void delete(Long id) {
+        programmerRepository.deleteById(id);
     }
 
     @Override
     public List<Programmer> getAll() {
-        return null;
+        return programmerRepository.findAll();
     }
 
     @Override
-    public Optional<Programmer> getById(Long elementId) {
-        return Optional.empty();
+    public Optional<Programmer> getById(Long id) {
+        return programmerRepository.findById(id);
     }
 
     @Override
-    public Programmer update(Long id, Programmer element) {
-        return null;
+    public Programmer update(Long id, Programmer updateProgrammer) {
+        Programmer existingProgrammer = programmerRepository.findById(id).orElseThrow();
+        existingProgrammer.setFirstName(updateProgrammer.getFirstName());
+        existingProgrammer.setLastName(updateProgrammer.getLastName());
+        return programmerRepository.save(existingProgrammer);
     }
 }

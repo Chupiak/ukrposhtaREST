@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.ukrposhtarest.model.AbstractPerson;
+import org.ukrposhtarest.model.profession.Profession;
 
 
 @Entity
@@ -13,8 +14,7 @@ import org.ukrposhtarest.model.AbstractPerson;
 @Setter
 @ToString
 public class Programmer extends AbstractPerson {
-
     @ManyToOne
-    @JoinColumn(name = "programmer_id")
-    private Programmer programmer;
+    @JoinColumn(name = "profession_id")
+    private Profession profession;
 }

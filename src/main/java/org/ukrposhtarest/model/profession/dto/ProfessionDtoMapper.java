@@ -4,7 +4,7 @@ import org.ukrposhtarest.model.profession.Profession;
 
 public class ProfessionDtoMapper {
 
-    public static Profession fromRequestDto(ProfessionRequestDto requestDto) {
+    public static Profession toEntity(ProfessionRequestDto requestDto) {
         Profession profession = new Profession();
         profession.setTypeIt(requestDto.getTypeIt());
         profession.setLevelIt(requestDto.getLevelIt());

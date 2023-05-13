@@ -30,7 +30,7 @@ public class ManagerController {
 
     @PostMapping
     public ManagerResponseDto create (@RequestBody ManagerRequestDto managerReqDto) {
-        Manager manager = ManagerDtoMapper.fromRequestDto(managerReqDto);
+        Manager manager = ManagerDtoMapper.toEntity(managerReqDto);
         Manager createdManager = managerService.create(manager);
         return ManagerDtoMapper.toResponseDto(createdManager);
     }
@@ -42,7 +42,7 @@ public class ManagerController {
 
     @PutMapping("/{id}")
     public ManagerResponseDto update(@PathVariable("id") Long id, @RequestBody ManagerRequestDto managerReqDto) {
-        Manager manager = ManagerDtoMapper.fromRequestDto(managerReqDto);
+        Manager manager = ManagerDtoMapper.toEntity(managerReqDto);
         Manager updatedManager = managerService.update(id, manager);
         return ManagerDtoMapper.toResponseDto(updatedManager);
     }
