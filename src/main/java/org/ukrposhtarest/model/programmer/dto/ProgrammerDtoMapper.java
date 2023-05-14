@@ -28,7 +28,6 @@ public class ProgrammerDtoMapper {
         dto.setFirstName(programmer.getFirstName());
         dto.setLastName(programmer.getLastName());
         dto.setProfession(programmer.getProfession());
-
         return dto;
     }
 }
