@@ -6,42 +6,39 @@ import org.ukrposhtarest.model.manager.dto.ManagerResponseDto;
 import org.ukrposhtarest.model.programmer.Programmer;
 import org.ukrposhtarest.model.programmer.dto.ProgrammerResponseDto;
 import org.ukrposhtarest.model.project.Project;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ProjectDtoMapper {
+    public Project projectFromRequestDto (ProjectRequestDto requestDto) {
 
-    public Project mapToEntity(ProjectRequestDto requestDto) {
-        Project project = new Project();
-
-        List<Programmer> programmers = requestDto.getProgrammerIds().stream()
+        List<Programmer> programmerList = requestDto
+                                           .getProgrammerIds().stream()
                                            .map(id -> {
                                                Programmer programmer = new Programmer();
                                                programmer.setId(id);
                                                return programmer;
                                            })
                                            .collect(Collectors.toList());
-        project.setProgrammerList(programmers);
 
-        List<Manager> managers = requestDto.getManagerIds().stream()
+        List<Manager> managerList = requestDto.getManagerIds().stream()
                                      .map(id -> {
                                          Manager manager = new Manager();
                                          manager.setId(id);
                                          return manager;
                                      })
                                      .collect(Collectors.toList());
-        project.setManagerList(managers);
 
+        Project project = new Project();
+        project.setManagerList(managerList);
+        project.setProgrammerList(programmerList);
         return project;
     }
 
     public ProjectResponseDto mapToResponseDto(Project project) {
-        ProjectResponseDto responseDto = new ProjectResponseDto();
-        responseDto.setId(project.getId());
 
-        List<ProgrammerResponseDto> programmerResponseDtos = project.getProgrammerList().stream()
+        List<ProgrammerResponseDto> programmerResponseDtoList = project.getProgrammerList().stream()
                                                                  .map(programmer -> {
                                                                      ProgrammerResponseDto programmerResponseDto = new ProgrammerResponseDto();
                                                                      programmerResponseDto.setId(programmer.getId());
@@ -51,9 +48,8 @@ public class ProjectDtoMapper {
                                                                      return programmerResponseDto;
                                                                  })
                                                                  .collect(Collectors.toList());
-        responseDto.setProgrammers(programmerResponseDtos);
 
-        List<ManagerResponseDto> managerResponseDtos = project.getManagerList().stream()
+        List<ManagerResponseDto> managerResponseDtoList = project.getManagerList().stream()
                                                            .map(manager -> {
                                                                ManagerResponseDto managerResponseDto = new ManagerResponseDto();
                                                                managerResponseDto.setId(manager.getId());
@@ -62,8 +58,11 @@ public class ProjectDtoMapper {
                                                                return managerResponseDto;
                                                            })
                                                            .collect(Collectors.toList());
-        responseDto.setManagers(managerResponseDtos);
 
+        ProjectResponseDto responseDto = new ProjectResponseDto();
+        responseDto.setId(project.getId());
+        responseDto.setProgrammers(programmerResponseDtoList);
+        responseDto.setManagers(managerResponseDtoList);
         return responseDto;
     }
 }
