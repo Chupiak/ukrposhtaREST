@@ -6,6 +6,7 @@ import org.ukrposhtarest.model.manager.Manager;
 import org.ukrposhtarest.repository.ManagerRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -22,7 +23,7 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Override
     public Manager update(Long id, Manager updatedManager) {
-        Manager existingManager = managerRepository.findById(id).orElseThrow();
+        Manager existingManager = managerRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Manager with ID " + id + " not exist"));
         existingManager.setFirstName(updatedManager.getFirstName());
         existingManager.setLastName(updatedManager.getLastName());
         return managerRepository.save(existingManager);

@@ -6,6 +6,7 @@ import org.ukrposhtarest.model.profession.Profession;
 import org.ukrposhtarest.repository.ProfessionRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -37,7 +38,7 @@ public class ProfessionServiceImpl implements ProfessionService{
 
     @Override
     public Profession update(Long id, Profession updateProfession) {
-        Profession existingProfession = professionRepository.findById(id).orElseThrow();
+        Profession existingProfession = professionRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Profession with ID " + id + " not exist"));
         existingProfession.setTypeIt(updateProfession.getTypeIt());
         existingProfession.setLevelIt(updateProfession.getLevelIt());
         return professionRepository.save(existingProfession);

@@ -6,6 +6,7 @@ import org.ukrposhtarest.model.programmer.Programmer;
 import org.ukrposhtarest.repository.ProgrammerRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -36,7 +37,7 @@ public class ProgrammerServiceImpl implements ProgrammerService{
 
     @Override
     public Programmer update(Long id, Programmer updateProgrammer) {
-        Programmer existingProgrammer = programmerRepository.findById(id).orElseThrow();
+        Programmer existingProgrammer = programmerRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Programmer with ID " + id + " not exist"));
         existingProgrammer.setFirstName(updateProgrammer.getFirstName());
         existingProgrammer.setLastName(updateProgrammer.getLastName());
         existingProgrammer.setProfession(updateProgrammer.getProfession());
