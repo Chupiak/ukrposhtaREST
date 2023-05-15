@@ -1,6 +1,5 @@
 package org.ukrposhtarest.model.profession;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 

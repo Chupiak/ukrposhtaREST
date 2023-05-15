@@ -8,7 +8,6 @@ import lombok.ToString;
 import org.ukrposhtarest.model.AbstractPerson;
 import org.ukrposhtarest.model.profession.Profession;
 
-
 @Entity
 @Table(name = "programmers")
 @Getter

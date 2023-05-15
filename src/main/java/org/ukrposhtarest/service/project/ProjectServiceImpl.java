@@ -9,7 +9,6 @@ import org.ukrposhtarest.model.project.Project;
 import org.ukrposhtarest.repository.ManagerRepository;
 import org.ukrposhtarest.repository.ProgrammerRepository;
 import org.ukrposhtarest.repository.ProjectRepository;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;

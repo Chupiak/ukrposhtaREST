@@ -1,6 +1,5 @@
 package org.ukrposhtarest.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ukrposhtarest.model.profession.Profession;
@@ -8,7 +7,6 @@ import org.ukrposhtarest.model.profession.dto.ProfessionDtoMapper;
 import org.ukrposhtarest.model.profession.dto.ProfessionRequestDto;
 import org.ukrposhtarest.model.profession.dto.ProfessionResponseDto;
 import org.ukrposhtarest.service.profession.ProfessionService;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;

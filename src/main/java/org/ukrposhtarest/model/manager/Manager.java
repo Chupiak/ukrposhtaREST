@@ -5,7 +5,6 @@ import jakarta.persistence.Table;
 import lombok.ToString;
 import org.ukrposhtarest.model.AbstractPerson;
 
-
 @Entity
 @Table(name = "managers")
 @ToString

@@ -8,7 +8,6 @@ import org.ukrposhtarest.model.project.dto.ProjectResponseDto;
 import org.ukrposhtarest.service.manager.ManagerService;
 import org.ukrposhtarest.service.programmer.ProgrammerService;
 import org.ukrposhtarest.service.project.ProjectService;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;

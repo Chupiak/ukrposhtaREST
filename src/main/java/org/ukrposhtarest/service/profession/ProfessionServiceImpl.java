@@ -5,7 +5,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.ukrposhtarest.model.profession.Profession;
 import org.ukrposhtarest.repository.ProfessionRepository;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
