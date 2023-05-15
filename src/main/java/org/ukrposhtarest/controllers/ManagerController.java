@@ -9,6 +9,7 @@ import org.ukrposhtarest.model.manager.dto.ManagerResponseDto;
 import org.ukrposhtarest.service.manager.ManagerService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -47,7 +48,9 @@ public class ManagerController {
 
     @GetMapping("/{id}")
     public ManagerResponseDto getManagerById(@PathVariable("id") Long id) {
-        Manager manager = managerService.getById(id).orElseThrow();
+        Manager manager = managerService
+                              .getById(id)
+                              .orElseThrow(() -> new NoSuchElementException("Manager with ID " + id + " not exist"));
         return ManagerDtoMapper.managerToResponseDto(manager);
     }
 }

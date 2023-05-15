@@ -10,6 +10,7 @@ import org.ukrposhtarest.model.profession.dto.ProfessionResponseDto;
 import org.ukrposhtarest.service.profession.ProfessionService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,7 +42,7 @@ public class ProfessionController {
 
     @GetMapping("/{id}")
     public ProfessionResponseDto getProfessionById(@PathVariable("id") Long id) {
-        Profession profession = professionService.getById(id).orElseThrow();
+        Profession profession = professionService.getById(id).orElseThrow(() -> new NoSuchElementException("Profession with ID " + id + " not exist"));
         return ProfessionDtoMapper.professionToResponseDto(profession);
     }
 

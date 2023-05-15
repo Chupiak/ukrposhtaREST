@@ -10,6 +10,7 @@ import org.ukrposhtarest.repository.ProgrammerRepository;
 import org.ukrposhtarest.repository.ProjectRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -47,32 +48,46 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override
     public void addManagerToProject(Long projectId, Long managerId) {
-        Project project = projectRepository.findById(projectId).orElseThrow();
-        Manager manager = managerRepository.findById(managerId).orElseThrow();
+        Project project = projectRepository
+                              .findById(projectId)
+                              .orElseThrow(() -> new NoSuchElementException("Project with ID " + projectId + " not exist"));
+        Manager manager = managerRepository
+                              .findById(managerId)
+                              .orElseThrow(() -> new NoSuchElementException("Manager with ID " + managerId + " not exist"));
         project.getManagerList().add(manager);
         projectRepository.save(project);
     }
 
     @Override
     public void removeManagerFromProject(Long projectId, Long managerId) {
-        Project project = projectRepository.findById(projectId).orElseThrow();
-        Manager manager = managerRepository.findById(managerId).orElseThrow();
+        Project project = projectRepository
+                              .findById(projectId)
+                              .orElseThrow(() -> new NoSuchElementException("Project with ID " + projectId + " not exist"));
+        Manager manager = managerRepository
+                              .findById(managerId)
+                              .orElseThrow(() -> new NoSuchElementException("Manager with ID " + managerId + " not exist"));
         project.getManagerList().remove(manager);
         projectRepository.save(project);
     }
 
     @Override
     public void addProgrammerToProject(Long projectId, Long programmerId) {
-        Project project = projectRepository.findById(projectId).orElseThrow();
-        Programmer programmer = programmerRepository.findById(programmerId).orElseThrow();
+        Project project = projectRepository
+                              .findById(projectId)
+                              .orElseThrow(() -> new NoSuchElementException("Project with ID " + projectId + " not exist"));
+        Programmer programmer = programmerRepository.findById(programmerId).orElseThrow(() -> new NoSuchElementException("Programmer with ID " + programmerId + " not exist"));
         project.getProgrammerList().add(programmer);
         projectRepository.save(project);
     }
 
     @Override
     public void removeProgrammerFromProject(Long projectId, Long programmerId) {
-        Project project = projectRepository.findById(projectId).orElseThrow();
-        Programmer programmer = programmerRepository.findById(programmerId).orElseThrow();
+        Project project = projectRepository
+                              .findById(projectId)
+                              .orElseThrow(() -> new NoSuchElementException("Project with ID " + projectId + " not exist"));
+        Programmer programmer = programmerRepository
+                                    .findById(programmerId)
+                                    .orElseThrow(() -> new NoSuchElementException("Programmer with ID " + programmerId + " not exist"));
         project.getProgrammerList().remove(programmer);
         projectRepository.save(project);
     }

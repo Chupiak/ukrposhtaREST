@@ -10,6 +10,7 @@ import org.ukrposhtarest.model.programmer.dto.ProgrammerResponseDto;
 import org.ukrposhtarest.service.programmer.ProgrammerService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -44,7 +45,7 @@ public class ProgrammerController {
 
     @GetMapping("/{id}")
     public ProgrammerResponseDto getProgrammerById(@PathVariable("id") Long id) {
-        Programmer programmer = programmerService.getById(id).orElseThrow();
+        Programmer programmer = programmerService.getById(id).orElseThrow(() -> new NoSuchElementException("Programmer with ID " + id + " not exist"));
         return programmerDtoMapper.toResponseDto(programmer);
     }
 

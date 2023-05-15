@@ -10,6 +10,7 @@ import org.ukrposhtarest.service.programmer.ProgrammerService;
 import org.ukrposhtarest.service.project.ProjectService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -43,7 +44,7 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public ProjectResponseDto getProjectById(@PathVariable("id") Long id) {
-        Project project = projectService.getById(id).orElseThrow();
+        Project project = projectService.getById(id).orElseThrow(() -> new NoSuchElementException("Project with ID " + id + " not exist"));
         return projectDtoMapper.mapToResponseDto(project);
     }
 
