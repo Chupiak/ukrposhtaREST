@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProjectDtoMapper {
+
     public Project mapToEntity(ProjectRequestDto requestDto) {
         Project project = new Project();
 

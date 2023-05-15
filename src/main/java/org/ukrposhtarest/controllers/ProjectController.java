@@ -8,6 +8,7 @@ import org.ukrposhtarest.model.project.dto.ProjectResponseDto;
 import org.ukrposhtarest.service.manager.ManagerService;
 import org.ukrposhtarest.service.programmer.ProgrammerService;
 import org.ukrposhtarest.service.project.ProjectService;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,10 +30,7 @@ public class ProjectController {
 
     @PostMapping
     public ProjectResponseDto create() {
-        Project project = projectService.createProject();
-        project.setManagerList(List.of());
-        project.setProgrammerList(List.of());
-        return projectDtoMapper.mapToResponseDto(project);
+        return projectDtoMapper.mapToResponseDto(projectService.createProject());
     }
 
     @GetMapping("/")
@@ -41,6 +39,12 @@ public class ProjectController {
         return projects.stream()
                    .map(projectDtoMapper::mapToResponseDto)
                    .collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}")
+    public ProjectResponseDto getProjectById(@PathVariable("id") Long id) {
+        Project project = projectService.getById(id).orElseThrow();
+        return projectDtoMapper.mapToResponseDto(project);
     }
 
     @DeleteMapping("/{id}")

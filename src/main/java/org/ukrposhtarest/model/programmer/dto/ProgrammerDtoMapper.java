@@ -11,9 +11,8 @@ public class ProgrammerDtoMapper {
     @Autowired
     ProfessionService professionService;
 
-    public Programmer toEntity(ProgrammerRequestDto dto) {
+    public Programmer programmerFromRequestDto(ProgrammerRequestDto dto) {
         Profession profession = professionService.getById(dto.getProfessionId()).orElseThrow();
-
         Programmer programmer = new Programmer();
         programmer.setFirstName(dto.getFirstName());
         programmer.setLastName(dto.getLastName());

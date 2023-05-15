@@ -10,7 +10,6 @@ import org.ukrposhtarest.model.programmer.dto.ProgrammerResponseDto;
 import org.ukrposhtarest.service.programmer.ProgrammerService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,9 +24,9 @@ public class ProgrammerController {
 
     @PostMapping
     public ProgrammerResponseDto create(@RequestBody ProgrammerRequestDto programmerRequestDto) {
-        Programmer programmer = programmerDtoMapper.toEntity(programmerRequestDto);
-        Programmer savedProgrammer = programmerService.create(programmer);
-        return programmerDtoMapper.toResponseDto(savedProgrammer);
+        Programmer programmer = programmerDtoMapper.programmerFromRequestDto(programmerRequestDto);
+        programmerService.create(programmer);
+        return programmerDtoMapper.toResponseDto(programmer);
     }
 
     @GetMapping("/")
@@ -45,14 +44,13 @@ public class ProgrammerController {
 
     @GetMapping("/{id}")
     public ProgrammerResponseDto getProgrammerById(@PathVariable("id") Long id) {
-        Optional<Programmer> optionalProgrammer = programmerService.getById(id);
-        Programmer programmer = optionalProgrammer.orElseThrow();
+        Programmer programmer = programmerService.getById(id).orElseThrow();
         return programmerDtoMapper.toResponseDto(programmer);
     }
 
     @PutMapping("/{id}")
     public ProgrammerResponseDto update(@PathVariable("id") Long id, @RequestBody ProgrammerRequestDto managerReqDto) {
-        Programmer programmer = programmerDtoMapper.toEntity(managerReqDto);
+        Programmer programmer = programmerDtoMapper.programmerFromRequestDto(managerReqDto);
         Programmer updatedProgrammer = programmerService.update(id, programmer);
         return programmerDtoMapper.toResponseDto(updatedProgrammer);
     }

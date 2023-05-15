@@ -42,9 +42,6 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override
     public void delete(Long id) {
-        Project project = projectRepository.findById(id).orElseThrow();
-        project.getManagerList().clear();
-        project.getProgrammerList().clear();
         projectRepository.deleteById(id);
     }
 

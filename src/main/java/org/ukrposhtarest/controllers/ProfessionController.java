@@ -10,7 +10,6 @@ import org.ukrposhtarest.model.profession.dto.ProfessionResponseDto;
 import org.ukrposhtarest.service.profession.ProfessionService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,16 +21,16 @@ public class ProfessionController {
 
     @PostMapping
     public ProfessionResponseDto create(@RequestBody ProfessionRequestDto professionRequestDto) {
-        Profession profession = ProfessionDtoMapper.toEntity(professionRequestDto);
-        Profession createdProfession = professionService.create(profession);
-        return ProfessionDtoMapper.toResponseDto(createdProfession);
+        Profession profession = ProfessionDtoMapper.professionFromRequestDto(professionRequestDto);
+        professionService.create(profession);
+        return ProfessionDtoMapper.professionToResponseDto(profession);
     }
 
     @GetMapping("/")
     public List<ProfessionResponseDto> getAllProfession() {
         List<Profession> professions = professionService.getAll();
         return professions.stream()
-                   .map(ProfessionDtoMapper::toResponseDto)
+                   .map(ProfessionDtoMapper::professionToResponseDto)
                    .collect(Collectors.toList());
     }
 
@@ -42,15 +41,13 @@ public class ProfessionController {
 
     @GetMapping("/{id}")
     public ProfessionResponseDto getProfessionById(@PathVariable("id") Long id) {
-        Optional<Profession> optionalProfession = professionService.getById(id);
-        Profession profession = optionalProfession.orElseThrow();
-        return ProfessionDtoMapper.toResponseDto(profession);
+        Profession profession = professionService.getById(id).orElseThrow();
+        return ProfessionDtoMapper.professionToResponseDto(profession);
     }
 
     @PutMapping("/{id}")
     public ProfessionResponseDto update(@PathVariable("id") Long id, @RequestBody ProfessionRequestDto professionRequestDto) {
-        Profession profession = ProfessionDtoMapper.toEntity(professionRequestDto);
-        Profession updatedProfession = professionService.update(id, profession);
-        return ProfessionDtoMapper.toResponseDto(updatedProfession);
+        Profession profession = ProfessionDtoMapper.professionFromRequestDto(professionRequestDto);
+        return ProfessionDtoMapper.professionToResponseDto(professionService.update(id, profession));
     }
 }
