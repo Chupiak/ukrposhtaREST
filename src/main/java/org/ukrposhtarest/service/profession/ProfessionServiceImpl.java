@@ -1,6 +1,7 @@
 package org.ukrposhtarest.service.profession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.ukrposhtarest.model.profession.Profession;
 import org.ukrposhtarest.repository.ProfessionRepository;
@@ -18,7 +19,11 @@ public class ProfessionServiceImpl implements ProfessionService{
 
     @Override
     public Profession create(Profession profession) {
-        return professionRepository.save(profession);
+        try {
+            return professionRepository.save(profession);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("You are trying to add a duplicate: " + profession.getLevelIt() + " " + profession.getTypeIt());
+        }
     }
 
     @Override

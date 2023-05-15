@@ -2,10 +2,7 @@ package org.ukrposhtarest.model.profession;
 
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
@@ -15,6 +12,7 @@ import lombok.ToString;
     @UniqueConstraint(columnNames = {"type_it", "level_it"})
 })
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Profession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

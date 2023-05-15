@@ -1,6 +1,7 @@
 package org.ukrposhtarest.service.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.ukrposhtarest.model.manager.Manager;
 import org.ukrposhtarest.model.programmer.Programmer;
@@ -55,7 +56,11 @@ public class ProjectServiceImpl implements ProjectService{
                               .findById(managerId)
                               .orElseThrow(() -> new NoSuchElementException("Manager with ID " + managerId + " not exist"));
         project.getManagerList().add(manager);
-        projectRepository.save(project);
+        try {
+            projectRepository.save(project);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("You are trying to add a duplicate manager to the project");
+        }
     }
 
     @Override
@@ -77,7 +82,11 @@ public class ProjectServiceImpl implements ProjectService{
                               .orElseThrow(() -> new NoSuchElementException("Project with ID " + projectId + " not exist"));
         Programmer programmer = programmerRepository.findById(programmerId).orElseThrow(() -> new NoSuchElementException("Programmer with ID " + programmerId + " not exist"));
         project.getProgrammerList().add(programmer);
-        projectRepository.save(project);
+        try{
+            projectRepository.save(project);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("You are trying to add a duplicate programmer to the project");
+        }
     }
 
     @Override

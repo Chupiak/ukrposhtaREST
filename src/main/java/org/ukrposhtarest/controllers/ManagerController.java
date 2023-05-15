@@ -7,7 +7,6 @@ import org.ukrposhtarest.model.manager.dto.ManagerDtoMapper;
 import org.ukrposhtarest.model.manager.dto.ManagerRequestDto;
 import org.ukrposhtarest.model.manager.dto.ManagerResponseDto;
 import org.ukrposhtarest.service.manager.ManagerService;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -18,7 +17,6 @@ public class ManagerController {
 
     @Autowired
     ManagerService managerService;
-
 
     @GetMapping("/")
     public List<ManagerResponseDto> getAllManagers() {
