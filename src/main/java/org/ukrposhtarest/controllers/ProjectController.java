@@ -2,20 +2,12 @@ package org.ukrposhtarest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.ukrposhtarest.model.manager.Manager;
-import org.ukrposhtarest.model.manager.dto.ManagerDtoMapper;
-import org.ukrposhtarest.model.manager.dto.ManagerRequestDto;
-import org.ukrposhtarest.model.manager.dto.ManagerResponseDto;
-import org.ukrposhtarest.model.programmer.Programmer;
-import org.ukrposhtarest.model.programmer.dto.ProgrammerResponseDto;
 import org.ukrposhtarest.model.project.Project;
 import org.ukrposhtarest.model.project.dto.ProjectDtoMapper;
-import org.ukrposhtarest.model.project.dto.ProjectRequestDto;
 import org.ukrposhtarest.model.project.dto.ProjectResponseDto;
 import org.ukrposhtarest.service.manager.ManagerService;
 import org.ukrposhtarest.service.programmer.ProgrammerService;
 import org.ukrposhtarest.service.project.ProjectService;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +29,7 @@ public class ProjectController {
 
     @PostMapping
     public ProjectResponseDto create() {
-        Project project = projectService.create();
+        Project project = projectService.createProject();
         project.setManagerList(List.of());
         project.setProgrammerList(List.of());
         return projectDtoMapper.mapToResponseDto(project);
@@ -49,5 +41,30 @@ public class ProjectController {
         return projects.stream()
                    .map(projectDtoMapper::mapToResponseDto)
                    .collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        projectService.delete(id);
+    }
+
+    @PostMapping("/{projectId}/add/manager/{managerId}")
+    public void addManagerToProject(@PathVariable Long projectId, @PathVariable Long managerId) {
+        projectService.addManagerToProject(projectId, managerId);
+    }
+
+    @PostMapping("/{projectId}/remove/manager/{managerId}")
+    public void removeManagerFromProject(@PathVariable Long projectId, @PathVariable Long managerId) {
+        projectService.removeManagerFromProject(projectId, managerId);
+    }
+
+    @PostMapping("/{projectId}/add/programmer/{programmerId}")
+    public void addProgrammerToProject(@PathVariable Long projectId, @PathVariable Long programmerId) {
+        projectService.addProgrammerToProject(projectId, programmerId);
+    }
+
+    @PostMapping("/{projectId}/remove/programmer/{programmerId}")
+    public void removeProgrammerFromProject(@PathVariable Long projectId, @PathVariable Long programmerId) {
+        projectService.removeProgrammerFromProject(projectId, programmerId);
     }
 }

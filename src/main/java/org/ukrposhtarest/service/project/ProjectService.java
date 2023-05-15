@@ -1,10 +1,17 @@
 package org.ukrposhtarest.service.project;
 
 import org.ukrposhtarest.model.project.Project;
+import org.ukrposhtarest.service.GenericServiceForDeleteGetGetAll;
 
-import java.util.List;
+public interface ProjectService extends GenericServiceForDeleteGetGetAll<Project> {
 
-public interface ProjectService {
-    Project create();
-    List<Project> getAll();
+    Project createProject();
+
+    void addManagerToProject(Long projectId, Long managerId);
+
+    void removeManagerFromProject(Long projectId, Long managerId);
+
+    void addProgrammerToProject(Long projectId, Long programmerId);
+
+    void removeProgrammerFromProject(Long projectId, Long programmerId);
 }
